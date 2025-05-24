@@ -45,7 +45,16 @@ module.exports = ({develop}) => ({
       {
         test: /\.scss$/i,
         use: [
-          miniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+          miniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src/styles')]
+              }
+            }
+          }
         ]
       },
       {

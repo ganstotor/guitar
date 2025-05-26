@@ -3,8 +3,10 @@
 
 body {
   font-family: $font;
+  color: $light;
   margin: 0;
   padding: 0;
+  background-color: #1f2023;
 }
 
 a {
@@ -12,11 +14,14 @@ a {
 }
 
 .header {
+  width: 100%;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
   height: 71px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 999;
 
   &::before {
     content: '';
@@ -30,22 +35,26 @@ a {
     z-index: -1;
     background-color: $accent;
   }
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 24px;
-    background-image: url("../images/header-bottom.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    bottom: -24px;
-  }
+
   &__logo {
     background-color: $accent;
     padding: 19px 45px 0 45px;
     border-radius: 10px 0 0 0;
     position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 26px;
+      height: 24px;
+      background-image: url("../images/header-bottom-left.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      left: 0;
+      bottom: -24px;
+    }
+
     &::after {
       content: '';
       display: block;
@@ -57,6 +66,7 @@ a {
       top: 0;
     }
   }
+
   &__link {
     color: $light;
     font-size: 20px;
@@ -65,7 +75,8 @@ a {
     border-radius: 0 10px 0 0;
     padding: 19px 45px 0 45px;
     position: relative;
-    &::before {
+
+    &::after {
       content: '';
       display: block;
       width: 68px;
@@ -74,6 +85,190 @@ a {
       position: absolute;
       right: 160px;
       top: 0;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 26px;
+      height: 24px;
+      background-image: url("../images/header-bottom-right.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      right: 0;
+      bottom: -24px;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1830px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.banner {
+  display: flex;
+  background-image: url("../images/bg-banner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50px;
+  padding: 100px 50px;
+  margin-top: 135px;
+  gap: 50px;
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    flex-basis: calc(40% - 50px);
+    gap: 20px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    box-sizing: border-box;
+    position: relative;
+    padding: 30px;
+    margin-right: 80px;
+    height: 151px;
+    border: 1px solid $light;
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    transition: $tr;
+    &:hover {
+      background-color: $accent;
+      border-color: $accent;
+      &::after {
+        opacity: 1;
+      }
+      .banner__decor {
+        background-color: $accent;
+        border-color: $accent;
+      }
+    }
+    &::before {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 151px;
+      background-image: url("../images/banner-info-decor.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      position: absolute;
+      right: -80px;
+      top: -1px;
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 151px;
+      background-image: url("../images/banner-info-decor-hover.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      position: absolute;
+      right: -80px;
+      top: -1px;
+      opacity: 0;
+      transition: $tr;
+    }
+  }
+
+  &__text {
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 110%;
+    margin: 0;
+    span {
+      display: block;
+      font-size: 32px;
+      font-weight: 700;
+      margin-top: 20px;
+    }
+
+  }
+
+  &__decor {
+    position: absolute;
+    top: 0;
+    right: -80px;
+    padding: 8px;
+    border: solid 1px $light;
+    border-radius: 10px;
+    transition: $tr;
+  }
+
+  &__title {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 110%;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  &__btn {
+    width: 100%;
+    color: $light;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 110%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: $accent;
+    border: 1px solid $accent;
+    padding: 30px;
+    border-radius: 20px;
+    transition: $tr;
+    cursor: pointer;
+    margin-top: auto;
+    @media(hover: hover) {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.banner-box {
+  border: 1px solid $light;
+  border-radius: 20px;
+  padding: 30px 332px 30px 30px;
+  position: relative;
+
+  &__title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+
+  &__text {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 150%;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__img {
+    position: absolute;
+
+    &_electricguitar {
+      top: -68px;
+      right: -20px;
     }
   }
 }

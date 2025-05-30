@@ -33,6 +33,9 @@ a {
   position: fixed;
   top: 0;
   z-index: 999;
+  @media (max-width: $r_tab) {
+    height: 66px;
+  }
 
   &::before {
     content: '';
@@ -52,6 +55,9 @@ a {
     padding: 19px 45px 0 45px;
     border-radius: 10px 0 0 0;
     position: relative;
+    @media (max-width: $r_desk) {
+      padding: 19px 20px 0 20px;
+    }
 
     &::before {
       content: '';
@@ -75,17 +81,24 @@ a {
       position: absolute;
       right: -68px;
       top: 0;
+      @media (max-width: $r_tab) {
+        height: 66px;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
     }
   }
 
-  &__link {
-    color: $light;
-    font-size: 20px;
-    font-weight: 400;
-    background-color: $accent;
-    border-radius: 0 10px 0 0;
+  &__info {
     padding: 19px 45px 0 45px;
     position: relative;
+    border-radius: 0 10px 0 0;
+    background-color: $accent;
+    min-width: 80px;
+    text-align: right;
+    @media (max-width: $r_desk) {
+      padding: 19px 20px 0 20px;
+    }
 
     &::after {
       content: '';
@@ -96,6 +109,13 @@ a {
       position: absolute;
       right: 160px;
       top: 0;
+      @media (max-width: $r_desk) {
+        right: 115px;
+      }
+      @media (max-width: $r_tab) {
+        height: 66px;
+        background-size: contain;
+      }
     }
 
     &::before {
@@ -111,14 +131,52 @@ a {
       bottom: -24px;
     }
   }
+
+  &__link {
+    color: $light;
+    font-size: 20px;
+    border-bottom: 1px solid $light;
+    padding-bottom: 5px;
+    transition: $tr;
+    @media (hover: hover) {
+      &:hover {
+        border-bottom: 1px solid $accent;
+      }
+    }
+    @media (max-width: $r_tab) {
+      font-size: 16px;
+    }
+  }
+}
+
+.logo {
+  &._max {
+    svg {
+      width: 400px;
+      height: 31px;
+      @media (max-width: $r_desk) {
+        width: clamp(300px, 33vw ,400px );
+      }
+    }
+  }
+
+  &._min {
+    svg {
+      width: 296px;
+      height: 22px;
+    }
+  }
 }
 
 .container {
   width: 100%;
   max-width: 1830px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 45px;
   box-sizing: border-box;
+  @media (max-width: $r_desk) {
+    padding: 0 20px;
+  }
 }
 
 .banner {
@@ -147,7 +205,7 @@ a {
   &__item {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: center;
     box-sizing: border-box;
     position: relative;
     padding: 30px;
@@ -210,6 +268,7 @@ a {
       display: block;
       font-size: 32px;
       font-weight: 700;
+      line-height: 110%;
       margin-top: 20px;
     }
 
@@ -260,6 +319,9 @@ a {
   border-radius: $br-min;
   padding: 30px 332px 30px 30px;
   position: relative;
+  @media (max-width: $r_desk_full) {
+    padding: 30px;
+  }
 
   &__title {
     font-size: 24px;
@@ -267,6 +329,7 @@ a {
     letter-spacing: 1.2px;
     text-transform: uppercase;
     margin-top: 0;
+    line-height: 110%;
   }
 
   &__text {
@@ -279,6 +342,9 @@ a {
 
   &__img {
     position: absolute;
+    @media (max-width: $r_desk_full) {
+      display: none;
+    }
 
     &_electricguitar {
       top: -68px;
@@ -570,6 +636,7 @@ a {
     background-color: $light;
     padding: 30px;
     border-radius: $br-min;
+
     &._subgrid {
       grid-column: 2 / 5;
       display: grid;
@@ -624,29 +691,40 @@ a {
 }
 
 .areas {
+  margin-top: 150px;
+  margin-bottom: 150px;
+
   &__link {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 20px;
     padding: 30px;
     color: $light;
     background-color: transparent;
     border-radius: 0;
-    border-bottom: 1px solid $accent;
     transition: $tr;
     cursor: pointer;
     position: relative;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $accent;
+    }
+
     &:hover {
       background-color: $accent;
       border-radius: 10px;
+
       &::after {
         transform: rotate(45deg);
       }
+
       &::before {
         opacity: 1;
         transform: scale(1);
       }
     }
+
     &::before {
       content: '';
       display: block;
@@ -660,6 +738,7 @@ a {
       transform: scale(0);
       transition: $tr;
     }
+
     &::after {
       content: '';
       display: block;
@@ -688,6 +767,7 @@ a {
         top: calc(50% - 120px);
       }
     }
+
     &._violin {
       &::before {
         width: 284px;
@@ -696,12 +776,109 @@ a {
         top: calc(50% - 170px);
       }
     }
+
     &._bas-guitar {
       &::before {
         width: 293px;
         height: 220px;
         background-image: url("../images/areas/bas-guitar.png");
         top: calc(50% - 120px);
+      }
+    }
+  }
+}
+
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 450px;
+  gap: 10px 20px;
+  background-color: $dark;
+  padding: 30px 50px;
+  margin-bottom: 30px;
+  border-radius: $br-min;
+
+  &__text {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    & + & {
+      margin-top: 6px;
+    }
+  }
+
+  &__link {
+    color: $accent;
+    box-shadow: 0 4px 0 -3px $accent;
+    transition: $tr;
+
+    &:hover {
+      box-shadow: 0 4px 0 -3px transparent;
+    }
+  }
+
+  &__copy {
+    text-align: right;
+    align-self: end;
+  }
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 11px;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: $light;
+    border-radius: 10px;
+    transition: $tr;
+
+
+    &:hover {
+      background-color: $accent;
+
+      &::after {
+        background-color: $light;
+      }
+
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      background-color: $accent;
+      mask: center center / 100% no-repeat;
+      transition: $tr;
+    }
+
+    &._wa {
+      &::after {
+        width: 28px;
+        height: 28px;
+        mask-image: url("../images/social/wa.svg");
+      }
+
+    }
+
+    &._vk {
+      &::after {
+        width: 31px;
+        height: 18px;
+        mask-image: url("../images/social/vk.svg");
+      }
+    }
+
+    &._tg {
+      &::after {
+        width: 25px;
+        height: 21px;
+        mask-image: url("../images/social/tg.svg");
       }
     }
   }
